@@ -28,24 +28,23 @@ app.post('/purchase', async (req, res) => {
         currency: 'USD',
       });
 
-      console.log("*******",charge);
+    // Make Payment
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [{
+          price_data: {
+            product: 'prod_LKzG6v1ZyWHFuZ',
+            unit_amount: 1500,
+            currency: 'usd',
+          },
+          quantity: 1,
+        }],
+        mode: 'payment',
+        success_url: 'https://example.com/success',
+        cancel_url: 'https://example.com/cancel',
+      });
 
-    //   const session = await stripe.checkout.sessions.create({
-    //     payment_method_types: ['card'],
-    //     line_items: [{
-    //       price_data: {
-    //         product: 'prod_LKzG6v1ZyWHFuZ',
-    //         unit_amount: 1500,
-    //         currency: 'usd',
-    //       },
-    //       quantity: 1,
-    //     }],
-    //     mode: 'payment',
-    //     success_url: 'https://example.com/success',
-    //     cancel_url: 'https://example.com/cancel',
-    //   });
-
-        // console.log("sessionsessionsessionsession", session);
+console.log("sessionsessionsessionsession", session);
 });
 
 
